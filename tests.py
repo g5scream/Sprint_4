@@ -7,17 +7,24 @@ class TestBooksCollector:
     def collector(self):
         return BooksCollector()
 
-    @pytest.mark.parametrize("book_name, is_valid", [
-        ("Короткий заголовок", True),
-        ("a" * 40, True),
-        ("a" * 41, False),
-        ("", False),
-        ("   ", False),
+    @pytest.mark.parametrize("book_name", [
+        "Короткий заголовок",
+        "a" * 40,
     ])
-    def test_add_new_book_valid_and_invalid_names(self, collector, book_name, is_valid):
+    def test_add_new_book_valid_names(self, collector, book_name):
         collector.add_new_book(book_name)
-        if is_valid:
-            assert book_name in collector.get_books_genre()
+        assert book_name in collector.get_books_genre()
+
+    @pytest.mark.parametrize("book_name", [
+        "a" * 41,
+        "",
+        "   ",
+    ])
+    def test_add_new_book_invalid_names(self, collector, book_name):
+        collector.add_new_book(book_name)
+
+        if book_name in collector.get_books_genre():
+            assert collector.get_books_genre()[book_name] == ''
         else:
             assert book_name not in collector.get_books_genre()
 

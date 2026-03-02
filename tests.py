@@ -54,3 +54,21 @@ class TestBooksCollector:
 
     def test_get_book_genre_nonexistent_book(self, collector):
         assert collector.get_book_genre("Нет в коллекции") is None
+
+
+    @pytest.mark.parametrize("genre, expected_books", [
+        ("Фантастика", ["Грань будущего", "Интерстеллар"]),
+        ("Ужасы", ["Зубастики"]),
+        ("Неизвестный жанр", []),
+    ])
+    def test_get_books_with_specific_genre(self, collector, genre, expected_books):
+        test_data = [
+            ("Грань будущего", "Фантастика"),
+            ("Интерстеллар", "Фантастика"),
+            ("Зубастики", "Ужасы"),
+        ]
+        for book, g in test_data:
+            collector.add_new_book(book)
+            collector.set_book_genre(book, g)
+        result = collector.get_books_with_specific_genre(genre)
+        assert sorted(result) == sorted(expected_books)

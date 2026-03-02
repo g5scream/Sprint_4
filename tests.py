@@ -72,3 +72,14 @@ class TestBooksCollector:
             collector.set_book_genre(book, g)
         result = collector.get_books_with_specific_genre(genre)
         assert sorted(result) == sorted(expected_books)
+
+
+    def test_get_books_genre(self, collector):
+        collector.add_new_book("Первому игроку приготовиться")
+        collector.set_book_genre("Первому игроку приготовиться", "Фантастика")
+        collector.add_new_book("Аватар")
+        expected = {
+            "Первому игроку приготовиться": "Фантастика",
+            "Аватар": ""
+        }
+        assert collector.get_books_genre() == expected

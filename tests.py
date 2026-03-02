@@ -5,6 +5,7 @@ class TestBooksCollector:
 
     @pytest.fixture
     def collector(self):
+        """Фикстура: создаёт новый экземпляр BooksCollector для каждого теста"""
         return BooksCollector()
 
     # Тесты для add_new_book

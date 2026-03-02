@@ -98,3 +98,21 @@ class TestBooksCollector:
         assert "Король Лев" in result
         assert "Один Дома" in result
         assert "Пила" not in result
+
+
+    def test_add_book_in_favorites_valid_book(self, collector):
+        collector.add_new_book("Одержимость")
+        collector.add_book_in_favorites("Одержимость")
+        assert "Одержимость" in collector.get_list_of_favorites_books()
+
+    def test_add_book_in_favorites_book_not_in_collection(self, collector):
+        collector.add_book_in_favorites("Книга не в коллекции")
+        assert "Книга не в коллекции" not in collector.get_list_of_favorites_books()
+
+    def test_add_book_in_favorites_duplicate(self, collector):
+        collector.add_new_book("Пожизненно")
+        collector.add_book_in_favorites("Пожизненно")
+        collector.add_book_in_favorites("Пожизненно")
+        assert len(collector.get_list_of_favorites_books()) == 1
+
+        

@@ -128,8 +128,7 @@ class TestBooksCollector:
         collector.add_new_book("Назад в Будущее")
         collector.add_new_book("Бесконечная История")
         collector.add_book_in_favorites("Назад в Будущее")
-        collector.add_book_in_favorites("Бесконечная История")
         favorites = collector.get_list_of_favorites_books()
         assert "Назад в Будущее" in favorites
-        assert "Бесконечная История" in favorites
-        assert len(favorites) == 2
+        assert "Бесконечная История" not in favorites
+        assert len(favorites) == 1

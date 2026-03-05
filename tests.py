@@ -128,7 +128,9 @@ class TestBooksCollector:
     def test_get_list_of_favorites_books(self, collector):
         collector.add_new_book("Назад в Будущее")
         collector.add_new_book("Бесконечная История")
-        collector.add_book_in_favorites("Назад в Будущее")
+
+        collector.favorites = ["Назад в Будущее"]
+        
         favorites = collector.get_list_of_favorites_books()
         assert "Назад в Будущее" in favorites
         assert "Бесконечная История" not in favorites
